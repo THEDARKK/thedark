@@ -1,0 +1,211 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mon Compte Twitter — Page de présentation</title>
+  <meta name="description" content="Une jolie page de présentation pour mon compte Twitter." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #0f172a;
+      --bg2: #0b132b;
+      --accent: #1d9bf0;
+      --card: #0b1220cc;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --ring: #60a5fa55;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 80% -10%, #1e293b55, transparent),
+                  radial-gradient(1000px 700px at -10% 110%, #0ea5e955, transparent),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(920px, 92vw);
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 1fr;
+      align-items: center;
+      padding: 2rem 0 3rem;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #0b1220cc, #0b1220aa);
+      border: 1px solid #1f2a44;
+      box-shadow: 0 20px 80px #000a;
+      border-radius: 24px;
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 1.25rem 1.75rem;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow {
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(60% 80% at 10% 10%, #60a5fa22, transparent 60%),
+                  radial-gradient(60% 80% at 90% 90%, #22d3ee22, transparent 60%);
+      pointer-events: none;
+      filter: blur(20px);
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 999px;
+      border: 1px solid #1f2a44;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(90px 90px at 30% 30%, #1d9bf022, transparent),
+        #0e162a;
+      position: relative;
+      box-shadow: 0 12px 40px #0008, 0 0 0 8px #ffffff05;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .avatar img { 
+      width: 100%; height: 100%; object-fit: cover; display: none; 
+    }
+    .avatar svg {
+      width: 56%; height: 56%; opacity: 0.95; transform: translateY(0);
+      filter: drop-shadow(0 6px 14px #1d9bf055);
+      transition: transform .6s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .content { align-self: center; }
+
+    h1 {
+      margin: 0 0 .35rem 0;
+      font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+      line-height: 1.15;
+      letter-spacing: .2px;
+    }
+    .handle {
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: .3px;
+    }
+
+    .actions { display: grid; gap: .75rem; }
+
+    .btn {
+      --shadow: 0 10px 30px #1d9bf055, 0 2px 10px #0005;
+      padding: .85rem 1.1rem;
+      border-radius: 16px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      text-decoration: none; color: white;
+      border: 1px solid #2563eb33;
+      background: linear-gradient(180deg, #1da1f2, #1a8cd8);
+      box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+      text-align: center;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 18px 36px #1d9bf066; }
+
+    .tagline { color: #cbd5e1; max-width: 70ch; }
+
+    .footer {
+      display: grid; gap: .5rem; justify-items: center; opacity: .9;
+      font-size: .9rem; color: var(--muted);
+    }
+
+    .ring { position: absolute; inset: 0; border-radius: 24px; box-shadow: 0 0 0 8px var(--ring); pointer-events: none; opacity: .25; }
+
+    .card:hover .avatar svg { transform: translateY(-2px) scale(1.02); }
+
+    @media (max-width: 720px) {
+      .card { grid-template-columns: 80px 1fr; gap: 1rem; }
+      .actions { grid-column: 1 / -1; grid-template-columns: 1fr; }
+      .avatar { width: 80px; height: 80px; }
+    }
+
+    .bubbles { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+    .bubble { position: absolute; border-radius: 999px; opacity: .12; filter: blur(1px); animation: rise linear infinite; background: #60a5fa; }
+    @keyframes rise {
+      from { transform: translateY(0) translateX(0) scale(1); }
+      to   { transform: translateY(-120vh) translateX(10vw) scale(1.6); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"></div>
+
+  <main class="container">
+    <section class="card" aria-label="Carte de profil Twitter">
+      <div class="glow" aria-hidden="true"></div>
+      <span class="ring" aria-hidden="true"></span>
+
+      <div class="avatar" title="Logo / avatar">
+        <img src="" alt="Logo du compte Twitter" onerror="this.style.display='none'" />
+        <svg viewBox="0 0 24 24" aria-hidden="true" role="img" focusable="false" fill="currentColor" style="color: var(--accent);">
+          <path d="M23 4.8c-.8.4-1.7.7-2.6.8.9-.6 1.6-1.5 1.9-2.6-.9.6-1.9 1-3 1.2a4.5 4.5 0 0 0-7.8 4.1A12.8 12.8 0 0 1 3 3.7a4.5 4.5 0 0 0 1.4 6 4.4 4.4 0 0 1-2-.6v.1c0 2.2 1.6 4.1 3.7 4.5-.4.1-.9.2-1.3.2-.3 0-.6 0-.9-.1.6 1.9 2.4 3.3 4.5 3.4A9 9 0 0 1 2 19.5 12.7 12.7 0 0 0 8.9 21c8 0 12.4-6.7 12.4-12.4v-.6c.9-.6 1.6-1.4 2.2-2.2z"/>
+        </svg>
+      </div>
+
+      <div class="content">
+        <h1>Mon Compte Twitter</h1>
+        <div class="handle">@votre_handle</div>
+        <p class="tagline">Bienvenue sur ma page ! Retrouvez mes derniers tweets, projets et coups de cœur. Cliquez sur « Suivre » pour ne rien manquer ✨</p>
+      </div>
+
+      <div class="actions">
+        <a class="btn" id="follow" href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Suivre sur Twitter">Suivre sur Twitter</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>Astuce : remplacez <code>@votre_handle</code>, mettez le lien de votre profil, et ajoutez votre logo dans la balise <code>&lt;img&gt;</code>.</div>
+      <div>© <span id="year"></span> • Fait avec ❤</div>
+    </footer>
+  </main>
+
+  <script>
+    const HANDLE = '@votre_handle';
+    const PROFILE_URL = 'https://twitter.com/';
+    const LOGO_SRC = '';
+
+    document.querySelector('.handle').textContent = HANDLE;
+    document.getElementById('follow').href = PROFILE_URL;
+    document.title = `${HANDLE.replace('@','')} — Twitter`;
+    if (LOGO_SRC) {
+      const img = document.querySelector('.avatar img');
+      img.src = LOGO_SRC; img.style.display = 'block';
+      document.querySelector('.avatar svg').style.display = 'none';
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const bubbles = document.querySelector('.bubbles');
+    for (let i = 0; i < 16; i++) {
+      const b = document.createElement('span');
+      b.className = 'bubble';
+      const size = Math.random() * 8 + 4;
+      b.style.width = b.style.height = size + 'px';
+      b.style.left = Math.random() * 100 + 'vw';
+      b.style.bottom = (-10 - Math.random()*30) + 'vh';
+      b.style.animationDuration = (14 + Math.random() * 10) + 's';
+      bubbles.appendChild(b);
+    }
+  </script>
+</body>
+</html>
